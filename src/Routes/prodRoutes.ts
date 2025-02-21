@@ -1,7 +1,8 @@
 import express from 'express';
 import { deleteProductById, editProductById, fetchCategoriesController, getAllProducts, uploadProduct } from '../Controllers/productController';
 import { adminMiddleware } from '../Middlewares/adminMiddleware';
-import upload from '../multer/upload';
+import {upload} from '../Middlewares/multerMiddleware';
+
 
 const prodRoutes = express.Router();
 

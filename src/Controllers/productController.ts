@@ -43,6 +43,7 @@ const uploadProduct = async (req: Request, res: Response) => {
                 message : "image upload failed"
             })
         }
+        
 
         // Check if the product already exists
         const existingProd = await Product.findOne({ prod_name });
@@ -58,7 +59,7 @@ const uploadProduct = async (req: Request, res: Response) => {
         // Save the product in the database with the image path
         const newProd = new Product({
             prod_name,
-            prod_image : cloudinaryResult.secure_url, // Store the image path in the DB
+            prod_image , // Store the image path in the DB
             prod_price,
             prod_des,
             prod_title,
