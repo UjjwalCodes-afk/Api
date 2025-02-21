@@ -40,7 +40,8 @@ app.use(cors({
     origin : ['http://localhost:5173' , "https://node-react-lake.vercel.app"],
     allowedHeaders : ['Content-Type', 'Authorization', 'stripe-account']
 }))
-app.use('/uploads', express.static(path.join('D:','admin dashboard', 'Uploads')));
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const PORT = process.env.PORT || 8000
 connectDB();
