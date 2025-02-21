@@ -12,6 +12,7 @@ import session from 'express-session';
 import paymentRoute from './Routes/paymentRoutes';
 import errHandler from './Middlewares/errorhandler';
 import orderRoutes from './Routes/OrderRoutes';
+import cloudinary from './Uploads/cloudinary';
 
 
 

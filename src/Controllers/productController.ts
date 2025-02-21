@@ -35,10 +35,10 @@ const uploadProduct = async (req: Request, res: Response) => {
                 message: 'Please provide all required product details'
             });
         }
-        const cloudinaryResult = cloudinary.v2.uploader.upload(req.file.path, {
+        const cloudinaryResult = await cloudinary.v2.uploader.upload(req.file.path, {
             folder : 'products'
         })
-        if(!(await cloudinaryResult).secure_url){
+        if(!cloudinaryResult.secure_url){
             return res.status(500).json({
                 message : "image upload failed"
             })
@@ -58,7 +58,7 @@ const uploadProduct = async (req: Request, res: Response) => {
         // Save the product in the database with the image path
         const newProd = new Product({
             prod_name,
-            prod_image : (await cloudinaryResult).secure_url, // Store the image path in the DB
+            prod_image : cloudinaryResult.secure_url, // Store the image path in the DB
             prod_price,
             prod_des,
             prod_title,
@@ -73,7 +73,8 @@ const uploadProduct = async (req: Request, res: Response) => {
             message: 'Product saved successfully'
         });
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
+        console.log(error.code);
         return res.status(500).send({
             success: false,
             message: 'Error processing the API request'
