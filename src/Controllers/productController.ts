@@ -6,6 +6,7 @@ import fs from 'fs-extra';
 import axios from 'axios';
 import upload from '../multer/upload';
 import { Form } from '../Models/formModel';
+import cloudinary from 'cloudinary';
 
 interface DecodedToken {
     userId: string;  // Assuming 'userId' is in the JWT payload
@@ -34,6 +35,14 @@ const uploadProduct = async (req: Request, res: Response) => {
                 message: 'Please provide all required product details'
             });
         }
+        const cloudinaryResult = cloudinary.v2.uploader.upload(req.file.path, {
+            folder : 'products'
+        })
+        if(!(await cloudinaryResult).secure_url){
+            return res.status(500).json({
+                message : "image upload failed"
+            })
+        }
 
         // Check if the product already exists
         const existingProd = await Product.findOne({ prod_name });
@@ -49,7 +58,7 @@ const uploadProduct = async (req: Request, res: Response) => {
         // Save the product in the database with the image path
         const newProd = new Product({
             prod_name,
-            prod_image, // Store the image path in the DB
+            prod_image : (await cloudinaryResult).secure_url, // Store the image path in the DB
             prod_price,
             prod_des,
             prod_title,
