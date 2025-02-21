@@ -37,7 +37,7 @@ app.use(
 );
 app.use(cors({
     credentials : true,
-    origin : 'http://localhost:5173',
+    origin : ['http://localhost:5173' , "https://node-react-lake.vercel.app"],
     allowedHeaders : ['Content-Type', 'Authorization', 'stripe-account']
 }))
 app.use('/uploads', express.static(path.join('D:','admin dashboard', 'Uploads')));
