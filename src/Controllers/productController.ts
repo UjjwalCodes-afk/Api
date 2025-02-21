@@ -59,7 +59,7 @@ const uploadProduct = async (req: Request, res: Response) => {
         // Save the product in the database with the image path
         const newProd = new Product({
             prod_name,
-            prod_image , // Store the image path in the DB
+            prod_image, // Store the image path in the DB
             prod_price,
             prod_des,
             prod_title,
@@ -71,7 +71,8 @@ const uploadProduct = async (req: Request, res: Response) => {
 
         return res.status(200).send({
             success: true,
-            message: 'Product saved successfully'
+            message: 'Product saved successfully',
+            product : newProd,
         });
     } catch (error) {
         console.log(error.message);
