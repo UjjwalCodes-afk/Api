@@ -42,7 +42,7 @@ app.use(
 );
 app.use(cors({
     credentials : true,
-    origin : "*",
+    origin : ['http://localhost:5173', 'https://node-react-9tve.vercel.app'],
     allowedHeaders : ['Content-Type', 'Authorization', 'stripe-account']
 }))
 
